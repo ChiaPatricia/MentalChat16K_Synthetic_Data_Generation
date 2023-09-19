@@ -1,0 +1,19 @@
+I would like you to help me create a list of long messages that simulate what a patient might say in a conversation with a mental health professional during a counseling session. The list of tasks should contain a variety of types of patients' description of experience, feelings, behaviors, questions, or anything that may be shared with a mental health professional. The messages should cover a range of topics in list of items: 
+{topics}
+
+{topic_avoidance}
+
+Please ensure that the messages are respectful and sensitive to the subject matter.
+
+All output messages should be in {language}.
+
+Include exactly {batch_size} messages in your response.
+
+Don't start with something similar to "Sure, here are ..." or "Certainly, here's ...", just output the patient messages using the format below.
+
+Response format:
+Instruction 1. [message 1]
+Instruction 2. [message 2]
+...
+
+Be sure to include "Instruction", untranslated, as a prefix as described in response format. 
