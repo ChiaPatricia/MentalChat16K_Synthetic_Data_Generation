@@ -1,1 +1,1 @@
-# MentalGPT_Self_Instruct_copy
+# MentalGPT_Self_Instruct
