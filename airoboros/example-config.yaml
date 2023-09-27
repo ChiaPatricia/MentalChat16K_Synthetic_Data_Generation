@@ -11,7 +11,7 @@ organization_id: org-hGCuMZLiQOhGJR6riDaxCg54
 output_path: instructions.jsonl
 
 # Path to the default topics file.
-topics_path: C:/MentalGPT_Self_Instruct/topics_20.txt
+topics_path: C:/MentalGPT_Self_Instruct/topics_counselchat.txt
 
 # Overwrite the output file, use with care!
 overwrite: true

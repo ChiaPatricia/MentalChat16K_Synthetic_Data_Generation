@@ -1,4 +1,7 @@
-I would like you to help me create a list of long messages that simulate what a patient might say in a conversation with a mental health professional during a counseling session. The list of tasks should contain a variety of types of patients' description of experience, feelings, behaviors, questions, or anything that may be shared with a mental health professional. The messages should cover a range of topics in list of items: 
+I would like you to help me create a list of long messages that simulate what a patient might say in a conversation with a mental health professional during a counseling session. 
+The list of tasks should contain a variety of types of patients' description of experience, feelings, behaviors, questions, or anything that may be shared with a mental health professional. 
+The messages should cover a range of topics in the list of items. Topics are listed in the order from most commonly observed to the lease commonly observed.
+A message can include a mix of topics in the topic list. Topics: 
 {topics}
 
 {topic_avoidance}
