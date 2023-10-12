@@ -255,12 +255,15 @@ class SelfInstructor:
         if not instructor_config.get("topics_path"):
             return self.topics
         with open(instructor_config["topics_path"]) as infile:
-            topics = list({line.strip() for line in infile.readlines() if line.strip()})
+            topics_probs = [line.strip().split(',') for line in infile.readlines() if line.strip()]
+            topics = [item[0] for item in topics_probs if item]
+            probs = [float(item[1]) for item in topics_probs if item]
+            # probs = [float(line.strip().split(',')[1]) for line in infile.readlines() if line.strip()]
             if not topics:
                 raise ValueError(
                     f"Found empty topics file: {instructor_config['topics_path']}"
                 )
-        return topics
+        return topics, probs
 
     @staticmethod
     def load_template(path: str) -> str:
@@ -383,7 +386,7 @@ class SelfInstructor:
                 if banned.search(text, re.I):
                     logger.warning(f"Banned response [{banned}]: {text}")
                     return None
-            if text.startswith(("I'm sorry,", "Apologies,", "I can't", "I won't")):
+            if text.startswith(("I'm sorry", "I'm really sorry", "Apologies,", "I can't", "I won't", "I'm not")):
                 logger.warning(f"Banned response [apology]: {text}")
                 return None
         return text

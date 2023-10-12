@@ -1,0 +1,1 @@
+nohup python -m airoboros.entrypoint generate-instructions --config-path ./example-config.yaml > ./generate-instructions.log 2>&1 &

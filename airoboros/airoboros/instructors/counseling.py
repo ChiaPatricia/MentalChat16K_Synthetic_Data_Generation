@@ -3,6 +3,7 @@ import json
 import os
 import random
 import re
+import numpy as np
 
 
 async def generate(instructor, **kwargs):
@@ -25,8 +26,9 @@ async def generate(instructor, **kwargs):
         template = infile.read()
 
     # Load the topics.
-    topics = instructor.get_instructor_topics(config)
-    topic_index = random.randint(0, len(topics) - 1)
+    topics, probs = instructor.get_instructor_topics(config)
+    # topic_index = random.randint(0, len(topics) - 1)
+    topic_index = np.random.choice(len(topics), p=probs)
 
     # API params, overriding defaults with this instructor's config.
     api_params = {**instructor.api_params, **config.get("api_params", {})}
@@ -51,12 +53,13 @@ async def generate(instructor, **kwargs):
         current_topics = []
         for _ in range(batch_size):
             current_topics.append(topics[topic_index])
-            topic_index += 1
-            if topic_index >= len(topics):
-                topic_index = 0
+            # topic_index += 1
+            # if topic_index >= len(topics):
+            #     topic_index = 0
+            topic_index = np.random.choice(len(topics), p=probs)
         topics_str = "\n".join(
             [
-                f" * instruction {idx + 1} must be related to topic: {json.dumps(topic)}"
+                f" * message {idx + 1} must be related to topic: {json.dumps(topic)}"
                 for idx, topic in enumerate(current_topics)
             ]
         )
@@ -77,25 +80,38 @@ async def generate(instructor, **kwargs):
         # Parse instructions and generate responses.
         futures = []
         instructions = []
+        included_topics = []
         response_prompt = """
-                          Please respond to the patient's message as if you were a genuine human, without using phrases like "I'm not a professional" , "I can't replace the advice of a ... professional" or similar disclaimers that state you are not, can not or can't do anything. 
-                          Do not include any professional help related content. 
-                          Do not respond with the same pattern. 
-                          Do not start with something similar to "I'm sorry to hear ... " or "It's understandable ..." or "I understand" or similar phrases that express your sympathy. 
-                          Your response should be supportive and include detailed suggestions. 
-                          Avoid directing the patient to a mental health professional, therapist, or expert as if you are roleplaying as a professional in the field related to the topics mentioned in the message, and demonstrate genuine care for the patient's feeling and well-being. 
-                          Remember this is a conversation between you and the patient.
-                          \n
-                          Patient's message: 
+You are a helpful and professional mental health therapist. Please respond to the patient's message below as if you were a genuine human, offering your suggestions and guidance. Your response should be detailed and considerate, addressing the patient's concerns step by step without relying on professional jargon or redirecting them to a mental health expert.
+
+Response Requirements:
+
+1. Avoid using phrases that emphasize your non-professional status or limitations.
+2. DO NOT direct the patient to a mental health expert, counselor, therapist or other similar people as if you were a mental health professional.
+3. Provide a varied response without repeating the same patterns.
+4. Do not start the response with "I'm sorry", or any similar patterns.
+5. Do not start the response with "I'm really", or any similar patterns.
+6. Do not start the response with "It sounds like", or any similar patterns.
+7. Do not start the response with "It seems like", or any similar patterns.
+8. Do not start the response with "It", or any similar patterns.
+9. Do not start the response with "I understand", or any similar patterns.
+10. Do not start the response with "It can be", or any similar patterns.
+11. Do not start the response with "I hear you", or any similar patterns.
+Please make sure to follow the requirements above in your response. 
+Additionally, don't start with greetings, acknowledging challenges, or expressing your understanding and empathy toward the patient's situation.
+JUST OUTPUT YOUR GUIDANCE AND SUGGESTIONS!! 
+\n
+Patient's message: 
                           """
-        for instruction in re.findall(
+        for idx, instruction in enumerate(re.findall(
             r"(?:^|\n)Instruction \d+\. (.*?)(?:$|(?=\nInstruction \d+\. ))", response, re.DOTALL
-        ):
+        )):
             if not instruction.strip() or await instructor.is_too_similar(
                 instruction, min_score=min_score
             ):
                 continue
             instructions.append(instruction)
+            included_topics.append(current_topics[idx])
             futures.append(
                 instructor.generate_response(
                     response_prompt+instruction, messages=kwargs.get("messages", []), **api_params
@@ -110,6 +126,7 @@ async def generate(instructor, **kwargs):
                 continue
             yield {
                 "instruction": instructions[idx].strip(),
+                "topic": current_topics[idx],
                 "response": response.strip(),
                 "category": "counseling",
             }

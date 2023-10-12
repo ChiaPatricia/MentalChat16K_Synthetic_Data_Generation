@@ -8,16 +8,16 @@ openai_api_key: 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
 organization_id: org-hGCuMZLiQOhGJR6riDaxCg54
 
 # Combined output file path.
-output_path: instructions.jsonl
+output_path: instructions_3topics.jsonl
 
 # Path to the default topics file.
-topics_path: C:/MentalGPT_Self_Instruct/topics_counselchat.txt
+topics_path: C:/MentalGPT_Self_Instruct/topics_3.txt
 
 # Overwrite the output file, use with care!
-overwrite: true
+overwrite: False
 
 # Append to the output file.
-append: false
+append: True
 
 # # Embedding model, for calculating similarity between documents; probably best left as-is since the code is fairly specific to this one.
 # embedding_model: thenlper/gte-small
@@ -26,7 +26,8 @@ append: false
 # embedding_device: cuda
 
 # Topic avoidance prompt string.
-topic_avoidance: Avoid any tasks that would be related to diagnosing mental health conditions, prescribing medication, or providing emergency intervention. Also, refrain from responding to topics that involve illegal activities, self-harm, or immediate life-threatening situations. Do not offer financial, legal, or medical advice, as a language model is not qualified to provide such guidance.
+topic_avoidance: 
+#Avoid any tasks that would be related to diagnosing mental health conditions, prescribing medication, or providing emergency intervention. Also, refrain from responding to topics that involve illegal activities, self-harm, or immediate life-threatening situations. Do not offer financial, legal, or medical advice, as a language model is not qualified to provide such guidance.
 
 # Regexes used to filter responses, mostly common words and phrases used in refusals.
 response_filters:
@@ -47,6 +48,12 @@ response_filters:
   - "flesch"
   - "I'm not a mental health professional"
   - "I can't replace a mental health professional"
+  - "I'm not a therapist"
+  - "I'm not a counselor"
+  - "I'm not a doctor"
+  - "I'm not a psychiatrist"
+  - "I'm not a psychologist"
+  
 
 # Optionally limit the maximum number of tokens to use when generating instructions.
 max_tokens:
@@ -62,12 +69,12 @@ api_params:
   presence_penalty: 2
 
 # Topic generation prompt.
-topic_request_count: 2
-topic_prompt: Give me a numbered list of 2 topics that encompass the wide range of mental health and counseling therapy issues individuals may encounter throughout their lives. {topic_avoidance}
+topic_request_count: 33
+topic_prompt: Give me a numbered list of 33 topics that encompass the wide range of mental health and counseling therapy issues individuals may encounter throughout their lives. {topic_avoidance}
 
 
 # Default count per generator, if not specified.
-default_count: 100
+default_count: 500
 
 # Default batch size, if not specified.
 default_batch_size: 10
@@ -87,22 +94,22 @@ instructors:
 
     # OpenAI settings.
       api_params:
-        temperature: 0.7
-        top_p: 0.5
+        temperature: 1
+        top_p: 1
         frequency_penalty: 0.0
         presence_penalty: 2
 
       # Number of instructions to generate.
-      count: 10
+      count: 5500
 
       # Batch size/number of instructions to generate per request.
-      batch_size: 5
+      batch_size: 10
 
       # Path to prompt to use in generating instructions.
       prompt_path: counseling.txt
 
       # Optionally override the default topics path for general prompts.
-      topics_path:
+      topics_path: C:/MentalGPT_Self_Instruct/topics_3.txt
 
       # Optionally override the min similarity score.
       min_docsearch_score: 

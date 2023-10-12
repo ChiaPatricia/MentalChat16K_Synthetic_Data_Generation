@@ -1,10 +1,20 @@
-I would like you to help me create a list of long messages that simulate what a patient might say in a conversation with a mental health professional during a counseling session. 
-The list of tasks should contain a variety of types of patients' description of experience, feelings, behaviors, questions, or anything that may be shared with a mental health professional. 
-The messages should cover a range of topics in the list of items. Topics are listed in the order from most commonly observed to the lease commonly observed.
-A message can include a mix of topics in the topic list. Topics: 
-{topics}
+Please help me create a list of {batch_size} messages that simulate what a patient might say in a conversation with a mental health professional during a counseling session and each has at least 300 words. 
+The list of messages should contain a variety of types of patients' description of experience, feelings, behaviors, questions, and all the details that may be shared with a mental health professional. 
 
-{topic_avoidance}
+Each message must cover all of the following requirements:
+1. Write the patient's situations step by step, write in 5000 words.
+1. Patient's goal they hope to achieve through the counseling session.
+2. Patient's description of their emotions and thoughts, the possible reasons triggered the symtons.
+3. Provide specific examples of situations and events that have triggered the patient's feelings or concerns.
+4. Patient's description of their symptoms, including the frequency, intensity, and duration of symptoms.
+5. Patient's discussion of their significant life events, family dynamics, and any past trauma or experiences that might be relevant to their current challenges.
+6. Describe any coping strategies if applicable. 
+7. Ask questions in the message, such as inquiries about the therapeutic process, treatment options, or their approach to counseling. 
+
+Make the messages as specific and detailed as possible. 
+
+Topics: 
+{topics}
 
 Please ensure that the messages are respectful and sensitive to the subject matter.
 
@@ -12,7 +22,7 @@ All output messages should be in {language}.
 
 Include exactly {batch_size} messages in your response.
 
-Don't start with something similar to "Sure, here are ..." or "Certainly, here's ...", just output the patient messages using the format below.
+Don't start with something similar or the same as "I'm sorry ...", and "I'm really sorry ...",  and "It sounds like ...", and "Sure, here are ...", and "Certainly, here's ...", just output the patient messages using the format below.
 
 Response format:
 Instruction 1. [message 1]

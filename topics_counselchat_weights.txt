@@ -1,0 +1,33 @@
+Relationships,184
+Anxiety,115
+Depression,99
+Intimacy,95
+Family Conflict,88
+Marriage,67
+Social Relationships,51
+Parenting,50
+Self-esteem,47
+Human Sexuality,43
+Counseling Fundamentals ,42
+Trauma,35
+Behavioral Change,34
+Relationship Dissolution ,32
+Stress,27
+LGBTQ,26
+Substance Abuse,24
+Anger Management,21
+Addiction,19
+Professional Ethics,18
+Spirituality,15
+Legal & Regulatory,13
+Workplace Relationships,12
+Sleep Improvement,10
+Domestic Violence,9
+Grief and Loss,8
+Career Counseling,8
+Diagnosis,5
+Children & Adolescents,5
+Military Issues ,5
+Self-harm,5
+Eating Disorders,4
+Alzheimer's,1
