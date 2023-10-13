@@ -100,7 +100,7 @@ instructors:
         presence_penalty: 2
 
       # Number of instructions to generate.
-      count: 5500
+      count: 7000
 
       # Batch size/number of instructions to generate per request.
       batch_size: 10
@@ -109,7 +109,7 @@ instructors:
       prompt_path: counseling.txt
 
       # Optionally override the default topics path for general prompts.
-      topics_path: C:/MentalGPT_Self_Instruct/topics_3.txt
+      topics_path: C:/MentalGPT_Self_Instruct/topics_counselchat_with_distr.txt
 
       # Optionally override the min similarity score.
       min_docsearch_score: 
