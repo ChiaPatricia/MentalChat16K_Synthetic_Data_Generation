@@ -2,16 +2,16 @@
 model: "gpt-3.5-turbo-16k"
   
 # OpenAI API key (if null, uses environment variable OPENAI_API_KEY)
-openai_api_key: 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
+openai_api_key: 
 
 # Optionally configure the OpenAI organization ID.
-organization_id: org-hGCuMZLiQOhGJR6riDaxCg54
+organization_id: 
 
 # Combined output file path.
 output_path: instructions_3topics.jsonl
 
 # Path to the default topics file.
-topics_path: C:/MentalGPT_Self_Instruct/topics_3.txt
+topics_path: topics_3.txt
 
 # Overwrite the output file, use with care!
 overwrite: False
@@ -109,7 +109,7 @@ instructors:
       prompt_path: counseling.txt
 
       # Optionally override the default topics path for general prompts.
-      topics_path: C:/MentalGPT_Self_Instruct/topics_counselchat_with_distr.txt
+      topics_path: topics_counselchat_with_distr.txt
 
       # Optionally override the min similarity score.
       min_docsearch_score: 
