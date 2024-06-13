@@ -1,1 +1,1 @@
-# MentalGPT_Self_Instruct
+# MentalChat16K Synthetic Data Generation
